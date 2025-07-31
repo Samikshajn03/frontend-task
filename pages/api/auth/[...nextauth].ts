@@ -20,7 +20,7 @@ export const authOptions: NextAuthOptions = {
             id: "1",
             name: email.split("@")[0],
             email,
-            token: "dummy-token-123", // ✅ custom token
+            token: "dummy-token-123", 
           };
         }
 
@@ -34,13 +34,12 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user && typeof user === "object" && "token" in user) {
-        // Attach the custom token to the JWT object
+        
         return { ...token, token: (user as { token: string }).token };
       }
       return token;
     },
     async session({ session, token }) {
-      // We safely cast `token` to include our custom field
       return {
         ...session,
         user: {
