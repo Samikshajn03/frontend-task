@@ -28,7 +28,7 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onClose, onSubmit }) => {
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl">&times;</button>
         <h2 className="text-xl font-semibold text-gray-800 mb-6">Add New Entry</h2>
 
-        {/* Select Project */}
+        
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Select Project <span className="text-red-500">*</span>
@@ -58,7 +58,7 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onClose, onSubmit }) => {
           </select>
         </div>
 
-        {/* Task Description */}
+        
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Task description <span className="text-red-500">*</span>
@@ -72,7 +72,7 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onClose, onSubmit }) => {
           <p className="text-xs text-gray-400 mt-1 ">A note for extra info</p>
         </div>
 
-        {/* Hours */}
+        
         <div className="mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Hours <span className="text-red-500">*</span>
@@ -90,7 +90,7 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onClose, onSubmit }) => {
           </div>
         </div>
 
-        {/* Buttons */}
+        
         <div className="flex justify-between items-center">
           <button
             onClick={handleSubmit}
