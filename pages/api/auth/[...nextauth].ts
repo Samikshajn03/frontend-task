@@ -1,9 +1,10 @@
 // pages/api/auth/[...nextauth].ts
 
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { JWT } from "next-auth/jwt";
 
-export default NextAuth({
+const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -12,23 +13,20 @@ export default NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-         console.log("Received credentials:", credentials);
-        const { email, password } = credentials as {
-          email: string;
-          password: string;
-        };
+        console.log("Received credentials:", credentials);
+        const { email, password } = credentials ?? {};
 
         // Dummy login validation
-         if (email && password) {
-    return {
-      id: "1",
-      name: email.split("@")[0], // Just take part before @ as name
-      email,
-      token: "dummy-token-123", // Dummy token for session
-    };
-  }
+        if (email && password) {
+          return {
+            id: "1",
+            name: email.split("@")[0], // part before @
+            email,
+            token: "dummy-token-123", // fake token
+          };
+        }
 
-  return null;
+        return null;
       },
     }),
   ],
@@ -37,15 +35,19 @@ export default NextAuth({
   },
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        token.token = (user as any).token;
+      if (user && "token" in user) {
+        token.token = (user as { token: string }).token;
       }
       return token;
     },
     async session({ session, token }) {
-      (session as any).token = token.token;
-      return session;
+      return {
+        ...session,
+        token: token.token as string,
+      };
     },
   },
   secret: process.env.NEXTAUTH_SECRET || "dev-secret",
-});
+};
+
+export default NextAuth(authOptions);
