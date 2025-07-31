@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 interface AddEntryModalProps {
+  isOpen: boolean;
   onClose: () => void;
   onSubmit: (entry: EntryData) => void;
 }
@@ -12,11 +13,13 @@ interface EntryData {
   hours: number;
 }
 
-const AddEntryModal: React.FC<AddEntryModalProps> = ({ onClose, onSubmit }) => {
+const AddEntryModal: React.FC<AddEntryModalProps> = ({ isOpen, onClose, onSubmit }) => {
   const [project, setProject] = useState("Project Name");
   const [workType, setWorkType] = useState("Bug fixes");
   const [description, setDescription] = useState("");
   const [hours, setHours] = useState(12);
+
+  if (!isOpen) return null;
 
   const handleSubmit = () => {
     onSubmit({ project, workType, description, hours });
@@ -25,10 +28,12 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onClose, onSubmit }) => {
   return (
     <div className="fixed inset-0 backdrop-blur-sm bg-white/60 flex items-center justify-center z-50">
       <div className="bg-white w-full max-w-md rounded-lg shadow-lg p-6 relative">
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl">
+          &times;
+        </button>
         <h2 className="text-xl font-semibold text-gray-800 mb-6">Add New Entry</h2>
 
-        
+        {/* Project Dropdown */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Select Project <span className="text-red-500">*</span>
@@ -58,7 +63,7 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onClose, onSubmit }) => {
           </select>
         </div>
 
-        
+        {/* Task Description */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Task description <span className="text-red-500">*</span>
@@ -72,7 +77,7 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onClose, onSubmit }) => {
           <p className="text-xs text-gray-400 mt-1 ">A note for extra info</p>
         </div>
 
-        
+        {/* Hours */}
         <div className="mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Hours <span className="text-red-500">*</span>
@@ -81,16 +86,20 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onClose, onSubmit }) => {
             <button
               onClick={() => setHours(Math.max(0, hours - 1))}
               className="w-8 h-8 border border-gray-300 rounded-md text-lg text-black"
-            >−</button>
+            >
+              −
+            </button>
             <span className="w-10 text-center text-sm text-black">{hours}</span>
             <button
               onClick={() => setHours(hours + 1)}
               className="w-8 h-8 border border-gray-300 rounded-md text-lg text-black"
-            >+</button>
+            >
+              +
+            </button>
           </div>
         </div>
 
-        
+        {/* Buttons */}
         <div className="flex justify-between items-center">
           <button
             onClick={handleSubmit}

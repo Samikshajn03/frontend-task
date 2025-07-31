@@ -33,8 +33,10 @@ const Dashboard: React.FC = () => {
         )}
 
         {showTaskModal && (
-          <AddModal isOpen={showTaskModal} onClose={handleCloseModal} />
-        )}
+  <AddModal isOpen={showTaskModal} onClose={handleCloseModal} onSubmit={handleAddTaskClick} />
+)}
+
+        
       </main>
 
       {/* Footer with top margin */}

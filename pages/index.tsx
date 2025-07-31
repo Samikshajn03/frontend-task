@@ -92,7 +92,7 @@ const LoginPage = () => {
   </div>
 
   {/* Footer */}
-  <p className="text-center text-sm text-gray-500 mt-8 w-full">© 2024 YourCompany</p>
+  <p className="text-center text-sm text-gray-500 mt-8 w-full">© 2024 Tentwenty</p>
 </div>
  
 

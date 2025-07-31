@@ -1,8 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { JWT } from "next-auth/jwt";
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -11,16 +10,17 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        console.log("Received credentials:", credentials);
-        const { email, password } = credentials ?? {};
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
 
-        // Dummy login validation
         if (email && password) {
           return {
             id: "1",
-            name: email.split("@")[0], 
+            name: email.split("@")[0],
             email,
-            token: "dummy-token-123", // fake token
+            token: "dummy-token-123", // ✅ custom token
           };
         }
 
@@ -33,15 +33,20 @@ const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, user }) {
-      if (user && "token" in user) {
-        token.token = (user as { token: string }).token;
+      if (user && typeof user === "object" && "token" in user) {
+        // Attach the custom token to the JWT object
+        return { ...token, token: (user as { token: string }).token };
       }
       return token;
     },
     async session({ session, token }) {
+      // We safely cast `token` to include our custom field
       return {
         ...session,
-        token: token.token as string,
+        user: {
+          ...session.user,
+          token: typeof token.token === "string" ? token.token : "",
+        },
       };
     },
   },
