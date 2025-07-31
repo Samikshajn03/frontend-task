@@ -1,9 +1,5 @@
 # Timesheet Dashboard
 
-A web-based dashboard for managing employee timesheets, including task tracking, week-based views, and modal-based task addition.
-
----
-
 ## 🛠️ Setup Instructions
 
 1. **Clone the repository**
@@ -37,7 +33,6 @@ A web-based dashboard for managing employee timesheets, including task tracking,
 * **React** – Frontend component library
 * **Tailwind CSS** – Utility-first CSS framework for styling
 * **TypeScript** – Typed superset of JavaScript
-* **Headless UI (optional)** – For accessible UI components like modals
 
 ---
 
@@ -46,15 +41,13 @@ A web-based dashboard for managing employee timesheets, including task tracking,
 * The dashboard allows switching between a **Timesheet Table** view and a **Timesheet Detail** view.
 * Clicking `View` on a table row opens the detailed view of that week's timesheet.
 * "Add New Task" opens a modal to add hours for that week.
-* Static data is currently used. Backend integration is assumed in the future.
-* Minimal validation is added for hours input.
-* `Footer` is not sticky and is placed just below the main content for a natural flow.
+* Static data is currently used. 
 
 ---
 
 ## ⏱️ Time Spent
 
-**\~5 to 6 hours**, including:
+**\~2 to 3 hours**, including:
 
 * Component setup (table, modal, container)
 * State management for week selection and modal visibility
@@ -78,6 +71,4 @@ A web-based dashboard for managing employee timesheets, including task tracking,
 
 ---
 
-## 📬 Feedback & Contributions
 
-Pull requests and feedback are welcome! Please open an issue for suggestions or bugs.
